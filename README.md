@@ -1,3 +1,3 @@
 # neSia
 
-I am gonna use llvm with rust
+My own programming language
