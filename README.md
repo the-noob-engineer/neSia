@@ -1,3 +1,3 @@
 # neSia
 
-My own programming language
+My own programming language (Interpreted)

@@ -1,3 +1,7 @@
 [workspace]
-members = ["nesia"]
+members = ["modules/lexer", "modules/parser","nesia"]
 resolver = "2"
+
+[workspace.dependencies]
+nesia_lexer = { path = "modules/lexer" }
+nesia_parser = { path = "modules/parser" }
