@@ -26,6 +26,7 @@ fn main() {
     let file_full_path = Path::new(&current_dir).join(&args.file);
     let source_code = std::fs::read_to_string(&file_full_path).expect("Failed to read source code");
     let tokens = nesia_lexer::tokenize(&source_code);
+    let ast = nesia_parser::parse_tokens(tokens);
 
-    print!("{:?}", tokens)
+    println!("{:?}", ast);
 }

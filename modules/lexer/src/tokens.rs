@@ -8,6 +8,7 @@ pub enum NesiaDataType {
 pub enum Token {
     // Basic tokens
     Identifier(String), // e.g identifiers, my_variable
+    VariableIdentifier,
     Assign,             // assignment operator =
     Equals,             // equality operator ==
     NotOperator,        // not operator !
@@ -27,6 +28,8 @@ pub enum Token {
 
     // Data Types
     DataType(NesiaDataType),
+    Number(i64),
+    String(String),
 
     //
     Function,

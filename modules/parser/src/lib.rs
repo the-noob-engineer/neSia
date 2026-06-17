@@ -1,14 +1,12 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+use nesia_lexer::tokens::Token;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+use crate::{ast::Node, errors::ParseError};
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+pub mod ast;
+pub mod errors;
+pub mod parser;
+
+pub fn parse_tokens(tokens: Vec<Token>) -> Result<Node, ParseError> {
+    let parser = parser::Parser::new(tokens);
+    parser.parse()
 }

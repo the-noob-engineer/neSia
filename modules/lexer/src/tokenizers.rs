@@ -1,9 +1,29 @@
 use std::{iter::Peekable, str::Chars};
 
 use crate::tokens::{NesiaDataType, Token};
+use once_cell::sync::Lazy;
+use std::collections::HashMap;
 
 pub struct Tokenizer<'a> {
     chars: Peekable<Chars<'a>>,
+}
+
+static KEYWORDS: Lazy<HashMap<&'static str, Token>> = Lazy::new(|| {
+    HashMap::from([
+        ("function", Token::Function),
+        ("let", Token::VariableIdentifier),
+        ("return", Token::Return),
+        ("print", Token::Print),
+        ("string", Token::DataType(NesiaDataType::StringDataType)),
+        ("number", Token::DataType(NesiaDataType::NumberDataType)),
+    ])
+});
+
+fn keyword_or_identifier(ident: String) -> Token {
+    KEYWORDS
+        .get(ident.as_str())
+        .cloned()
+        .unwrap_or(Token::Identifier(ident))
 }
 
 impl<'a> Tokenizer<'a> {
@@ -71,6 +91,12 @@ impl<'a> Tokenizer<'a> {
                     self.chars.next();
                 }
 
+                '"' => {
+                    self.chars.next();
+                    tokens.push(self.read_string());
+                    self.chars.next();
+                }
+
                 c if c.is_alphabetic() || c == '_' => {
                     tokens.push(self.read_identifier());
                 }
@@ -82,6 +108,22 @@ impl<'a> Tokenizer<'a> {
         }
 
         tokens
+    }
+
+    fn read_string(&mut self) -> Token {
+        let mut string = String::new();
+
+        while let Some(&c) = self.chars.peek() {
+            if c == '"' {
+                self.chars.next(); // consume closing quote
+                break;
+            }
+
+            string.push(c);
+            self.chars.next();
+        }
+
+        Token::String(string)
     }
 
     fn read_identifier(&mut self) -> Token {
@@ -96,14 +138,7 @@ impl<'a> Tokenizer<'a> {
             }
         }
 
-        match ident.as_str() {
-            "function" => Token::Function,
-            "return" => Token::Return,
-            "print" => Token::Print,
-            "string" => Token::DataType(NesiaDataType::StringDataType),
-            "number" => Token::DataType(NesiaDataType::NumberDataType),
-            _ => Token::Identifier(ident),
-        }
+        keyword_or_identifier(ident)
     }
 
     fn read_number(&mut self) -> Token {
@@ -118,6 +153,6 @@ impl<'a> Tokenizer<'a> {
             }
         }
 
-        Token::DataType(num.parse().unwrap())
+        Token::Number(num.parse().expect("expected a number"))
     }
 }
