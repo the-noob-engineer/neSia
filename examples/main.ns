@@ -1,7 +1,0 @@
-function name(name: string = "Carter") -> string:
-    return "Hello, World!" + name
-
-
-let my_name = "John"
-
-print(name(my_name))
