@@ -1,0 +1,3 @@
+[workspace]
+members = ["crates/ns_lexer", "crates/ns_lib","crates/ns_parser",]
+resolver = "2"
