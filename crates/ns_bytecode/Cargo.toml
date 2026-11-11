@@ -1,5 +1,5 @@
 [package]
-name = "ns_lib"
+name = "ns_bytecode"
 version = "0.1.0"
 edition = "2024"
 

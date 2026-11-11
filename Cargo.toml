@@ -1,3 +1,24 @@
+[package]
+name = "libnesia"
+version = "0.0.1"
+edition = "2024"
+
 [workspace]
-members = ["crates/ns_lexer", "crates/ns_lib","crates/ns_parser",]
+members = [
+    "crates/ns_ast",
+    "crates/ns_bytecode",
+    "crates/ns_compiler",
+    "crates/ns_hir",
+    "crates/ns_lexer",
+    "crates/ns_parser",
+    "crates/ns_runtime",
+    "crates/ns_std",
+    "crates/ns_types",
+    "crates/ns_vm",
+]
 resolver = "2"
+
+
+[[bin]]
+name = "nesiac"
+path = "./src/bin/nesiac.rs"
