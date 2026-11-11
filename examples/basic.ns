@@ -1,0 +1,7 @@
+let name = "Dawda"
+
+fn display_name(arg1: string) {
+    print("Your name is {arg1}")
+}
+
+display_name(name)
