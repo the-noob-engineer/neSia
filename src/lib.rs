@@ -3,6 +3,6 @@ pub fn ns_format(message: String) {
 }
 
 pub fn nesia_interpret(source_code: String) -> Result<(), ns_lexer::lexer::LexerError> {
-    let _tokens = ns_lexer::lexerize(source_code)?;
+    let _tokens = ns_lexer::lexerize_result(source_code)?;
     Ok(())
 }

@@ -222,6 +222,10 @@ version = "0.1.0"
 [[package]]
 name = "ns_parser"
 version = "0.1.0"
+dependencies = [
+ "ns_ast",
+ "ns_lexer",
+]
 
 [[package]]
 name = "ns_runtime"
